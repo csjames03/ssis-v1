@@ -213,7 +213,7 @@ def IsUniqueId(id):
     with open(coursesFile, 'r') as file:
         csv_reader = csv.reader(file)
         for row in csv_reader:
-            if str(row[0]) == str(id):
+            if str(row[1]) == str(id):
                 return False
     return True
 
