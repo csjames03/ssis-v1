@@ -16,14 +16,22 @@ document.getElementById('addForm').addEventListener('submit', async function (e)
     let isUnique = false
     const code = document.getElementById('add-code').value
     const course = document.getElementById('add-course').value
-    while(!isUnique){
         const id= generateRandomCode()   
-        const unqid = await eel.IsUniqueId(id)
-        if(unqid){
-            isUnique = true
+        const unqid = await eel.SearchByCode(code)()
+        console.log(unqid)
+        if(unqid.length>0){
+            Swal.fire({
+                position: 'top-end',
+                icon: 'error',
+                title: 'Course Code Alreaady Exists',
+                showConfirmButton: false,
+                timer: 1500
+              })
+    }else{
+        isUnique = true
             Add([id, code, course])
-        }
     }
+    
 })
 
 async function Add(courseInfo){
@@ -82,12 +90,23 @@ async function getResults(searchValue){
 
 
 //Listerner if Edit form is submitted
-document.getElementById('editForm').addEventListener('submit',(e)=>{
+document.getElementById('editForm').addEventListener('submit',async (e)=>{
     e.preventDefault()
     const codeInput = document.getElementById('edit-code').value
+    const isUnique = await eel.IsUniqueId(codeInput)()
     const courseInput = document.getElementById('edit-course').value
     const idinput = document.getElementById('edit-id').value
-    updateCourse([idinput,codeInput,courseInput])
+    if(!isUnique){
+        Swal.fire({
+            position: 'top-end',
+            icon: 'error',
+            title: 'Course Code Alreaady Exists',
+            showConfirmButton: false,
+            timer: 1500
+          })
+    }else{
+        updateCourse([idinput,codeInput,courseInput])
+    }
 })
 
 
