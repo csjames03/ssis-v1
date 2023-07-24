@@ -96,17 +96,7 @@ document.getElementById('editForm').addEventListener('submit',async (e)=>{
     const isUnique = await eel.IsUniqueId(codeInput)()
     const courseInput = document.getElementById('edit-course').value
     const idinput = document.getElementById('edit-id').value
-    if(!isUnique){
-        Swal.fire({
-            position: 'top-end',
-            icon: 'error',
-            title: 'Course Code Alreaady Exists',
-            showConfirmButton: false,
-            timer: 1500
-          })
-    }else{
-        updateCourse([idinput,codeInput,courseInput])
-    }
+    updateCourse([idinput,codeInput,courseInput])
 })
 
 
